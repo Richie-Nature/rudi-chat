@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Rudimentary Chat</title>
+</head>
+<body>
+<form th:object="${chat}" th:action="@{/chat}" action="#" method="POST">
+    <label for="username">Username:</label>
+    <input th:field="*{chatMessage.userName}" id="username" type="text" name="username">
+    <label for="message">Message Text:</label>
+    <input th:field="*{chatMessage.message}" id="message" type="text" name="message">
+    <label for="messageType">Message Type: </label>
+    <select th:field="*{mode}" id="messageType" name="mode">
+        <option th:value="'say'" th:text="Say" selected></option>
+        <option th:value="'shout'" th:text="Shout"></option>
+        <option th:value="'whisper'" th:text="Whisper"></option>
+    </select>
+    <button type="submit">Send</button>
+
+</form>
+
+<div>
+    <ul>
+        <li th:each="chat: ${chats}"><span th:text="${chat.userName}+': '">Username: </span>
+         <span th:unless="${#lists.contains(flagged, chat.message.toLowerCase())}" th:text="${chat.message}" ></span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
