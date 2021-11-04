@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Basic Rudimentary Chat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-dark p-4">
+<a th:href="@{/logout}" role="button" class="btn btn-success float-end mb-3">Logout</a>
 <form th:object="${chat}" th:action="@{/chat}" action="#" method="POST">
-    <label for="username">Username:</label>
-    <input th:field="*{chatMessage.userName}" id="username" type="text" name="username">
+<!--    <label for="username">Username:</label>-->
+<!--    <input th:field="*{chatMessage.username}" id="username" type="text" name="username">-->
     <label for="message">Message Text:</label>
     <input th:field="*{chatMessage.message}" id="message" type="text" name="message">
     <label for="messageType">Message Type: </label>
@@ -23,7 +25,7 @@
 
 <div>
     <ul>
-        <li th:each="chat: ${chats}"><span th:text="${chat.userName}+': '">Username: </span>
+        <li th:each="chat: ${chats}"><span th:text="${chat.username}+': '">Username: </span>
          <span th:unless="${#lists.contains(flagged, chat.message.toLowerCase())}" th:text="${chat.message}" ></span>
         </li>
     </ul>

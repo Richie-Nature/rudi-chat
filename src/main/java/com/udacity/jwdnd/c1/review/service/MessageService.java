@@ -1,7 +1,8 @@
-package com.udacity.jwdnd.c1.review;
+package com.udacity.jwdnd.c1.review.service;
 
-import com.udacity.jwdnd.c1.review.models.ChatForm;
-import com.udacity.jwdnd.c1.review.models.ChatMessage;
+import com.udacity.jwdnd.c1.review.mapper.MessageMapper;
+import com.udacity.jwdnd.c1.review.model.ChatForm;
+import com.udacity.jwdnd.c1.review.model.ChatMessage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -12,31 +13,34 @@ import java.util.Locale;
 @Service
 public class MessageService {
     private String message;
+    private MessageMapper messageMapper;
     private List<ChatMessage> chats;
     public List<String> flagged;
 
-    public MessageService(String message) {
+    public MessageService(String message, MessageMapper messageMapper) {
         this.message = message;
+        this.messageMapper = messageMapper;
     }
 
-    String upperCase() {
+    public String upperCase() {
         return this.message.toUpperCase(Locale.ROOT);
     }
 
-    String lowerCase() {
+    public String lowerCase() {
         return this.message.toLowerCase(Locale.ROOT);
     }
 
-    String upperCase(String message) {
+    public String upperCase(String message) {
         return message.toUpperCase(Locale.ROOT);
     }
 
-    String lowerCase(String message) {
+    public String lowerCase(String message) {
         return message.toLowerCase(Locale.ROOT);
     }
 
-    public void addMessage(ChatMessage chatMessage) {
-        this.chats.add(chatMessage);
+    public int addMessage(ChatMessage chatMessage) {
+//        this.chats.add(chatMessage);
+        return this.messageMapper.insert(chatMessage);
     }
 
     public String messageMode(ChatForm chatForm) {
@@ -52,7 +56,7 @@ public class MessageService {
     }
 
     public List<ChatMessage> getChats() {
-        return this.chats;
+        return this.messageMapper.findAll();
     }
 
     public List<String> getFlagged() {

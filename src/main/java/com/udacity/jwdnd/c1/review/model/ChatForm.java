@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.c1.review.models;
+package com.udacity.jwdnd.c1.review.model;
 
 public class ChatForm {
 
