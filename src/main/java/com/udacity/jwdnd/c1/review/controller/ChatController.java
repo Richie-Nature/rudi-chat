@@ -5,6 +5,7 @@ import com.udacity.jwdnd.c1.review.service.MessageService;
 import com.udacity.jwdnd.c1.review.model.ChatForm;
 import com.udacity.jwdnd.c1.review.model.ChatMessage;
 import com.udacity.jwdnd.c1.review.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class ChatController {
 
     @PostMapping("/chat")
     public String addChat(@ModelAttribute("chat")ChatForm chatForm, Model model) {
-
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
         chatForm.getChatMessage().setUsername(userService.currentUser().getName());
         chatForm.getChatMessage().setMessage(messageService.messageMode(chatForm));//set mode
 
